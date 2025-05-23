@@ -2,6 +2,7 @@ package com.nataliasouza.todosimple.models;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -94,40 +95,29 @@ public class User {
     }
 
     @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((id == null) ? 0 : id.hashCode());
-        result = prime * result + ((username == null) ? 0 : username.hashCode());
-        result = prime * result + ((password == null) ? 0 : password.hashCode());
-        return result;
-    }
-
-    @Override
     public boolean equals(Object obj) {
-        if (this == obj)
+        if (obj == this)
             return true;
         if (obj == null)
             return false;
-        if (getClass() != obj.getClass())
+        if (!(obj instanceof User))
             return false;
         User other = (User) obj;
-        if (id == null) {
+        if (this.id == null)
             if (other.id != null)
                 return false;
-        } else if (!id.equals(other.id))
-            return false;
-        if (username == null) {
-            if (other.username != null)
+            else if (!this.id.equals(other.id))
                 return false;
-        } else if (!username.equals(other.username))
-            return false;
-        if (password == null) {
-            if (other.password != null)
-                return false;
-        } else if (!password.equals(other.password))
-            return false;
-        return true;
+        return Objects.equals(this.id, other.id) && Objects.equals(this.username, other.username)
+                && Objects.equals(this.password, other.password);
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((this.id == null) ? 0 : this.id.hashCode());
+        return result;
     }
 
 
